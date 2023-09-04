@@ -28,7 +28,7 @@ void m_push(stack_t **stack, unsigned int linea)
 		new->prev = aux;
 	}
 		else
-		*stack = new;
+			*stack = new;
 	new->next = NULL;
 	new->n = numero;
  }
