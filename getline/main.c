@@ -1,8 +1,8 @@
 #include "monty.h"
-#include <ctype.h>
-#include <string.h> 
 
 int numero;
+int error;
+
 int main(int argc, char *argv[])
 {
     char *comandos = NULL, *line = NULL;
@@ -12,15 +12,18 @@ int main(int argc, char *argv[])
     stack_t *nod = NULL;
 	stack_t **stack = &nod;
 
-    if (argc != 2) {
-        printf("Uso: %s <nombre_archivo>\n", argv[0]);
-        return 1;
-    }
+    error = 0;
+	if (argc != 2)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
     FILE *file = fopen(argv[1], "r");
-    if (file == NULL) {
-        perror("Error al abrir el archivo");
-        return 1;
-    }
+	if (file == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
+	}
     while ((bytesRead = getline(&line, &bufsize, file)) != -1) {
         char *token = strtok(line, "$\n");
         while (token != NULL) {
@@ -40,6 +43,7 @@ int main(int argc, char *argv[])
                 contieneNumero(cleanedToken);
                 comandos = eliminarNumeros(cleanedToken);
                 serch_the_function(comandos, stack, linea);
+                error = 0;
                 free(cleanedToken);
             }
             token = strtok(NULL, "$\n");

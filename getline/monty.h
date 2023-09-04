@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h> 
+#include <ctype.h>
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -34,6 +35,7 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int linea);
 } instruction_t;
 extern int numero; // Declaración de la variable global
+extern int error; // Declaración de la variable global
 
 int contieneNumero(const char *line);
 char *eliminarNumeros(char *cadena);
@@ -41,6 +43,7 @@ int contieneNumero(const char *line);
 void m_push(stack_t **stack, unsigned int line_number);
 void m_pall(stack_t **stack, unsigned int line_number);
 void serch_the_function(char *cleaned_token, stack_t **stack, unsigned int line_number);
+void freeList(stack_t *stack);
 
 
 #endif
